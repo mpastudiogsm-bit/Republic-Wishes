@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<title>Happy Republic Day 26 January 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#ff9933,#ffffff,#138808);
+    min-height:100vh;
+    text-align:center;
+    overflow-x:hidden;
+}
+.card{
+    max-width:420px;
+    margin:20px auto;
+    background:rgba(255,255,255,.9);
+    backdrop-filter:blur(10px);
+    border-radius:20px;
+    padding:20px;
+    box-shadow:0 20px 40px rgba(0,0,0,.25);
+}
+h1{
+    font-size:26px;
+    animation:glow 2s infinite alternate;
+}
+@keyframes glow{
+    from{text-shadow:0 0 6px #ff9933}
+    to{text-shadow:0 0 18px #138808}
+}
+.gif img{
+    width:100%;
+    border-radius:15px;
+    margin:15px 0;
+    box-shadow:0 10px 25px rgba(0,0,0,.3);
+}
+.from{
+    font-weight:600;
+    color:#138808;
+    margin-bottom:10px;
+}
+input{
+    width:90%;
+    padding:12px;
+    border-radius:30px;
+    border:1px solid #ccc;
+    font-size:16px;
+    text-align:center;
+}
+.btn{
+    width:90%;
+    margin-top:12px;
+    padding:12px;
+    border:none;
+    border-radius:30px;
+    background:linear-gradient(135deg,#ff9933,#138808);
+    color:#fff;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+.share{
+    display:none;
+    margin-top:18px;
+}
+.share h3{
+    margin-bottom:10px;
+}
+.share button{
+    width:90%;
+    padding:12px;
+    border:none;
+    border-radius:30px;
+    background:#25D366;
+    color:#fff;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+.footer{
+    margin-top:15px;
+    font-size:13px;
+    opacity:.8;
+}
+
+/* Confetti */
+.confetti{
+    position:fixed;
+    width:8px;
+    height:8px;
+    top:-10px;
+    animation:fall linear infinite;
+}
+@keyframes fall{
+    to{transform:translateY(110vh) rotate(360deg)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>🇮🇳 Happy Republic Day 🇮🇳</h1>
+    <div>26 January 2026</div>
+
+    <div class="gif">
+        <img src="republic.gif" alt="Republic Day Animation">
+    </div>
+
+    <div class="from" id="fromText"></div>
+
+    <input type="text" id="name" placeholder="Apna naam likhiye">
+    <button class="btn" onclick="generate()">🎉 Greeting Link Banaye</button>
+
+    <div class="share" id="shareBox">
+        <h3>🔗 Social Media par Share kare</h3>
+        <button onclick="shareAll()">📲 Share with WhatsApp / Facebook / Instagram / Telegram</button>
+    </div>
+
+    <div class="footer">
+        🇮🇳 Deshbhakti ke saath aage share kare 🇮🇳
+    </div>
+</div>
+
+<script>
+function qs(n){return new URLSearchParams(location.search).get(n)}
+
+let sender = qs("name");
+if(sender){
+    document.getElementById("fromText").innerText =
+    "✨ From: " + decodeURIComponent(sender) + " ✨";
+    confetti();
+}
+
+function generate(){
+    let n=document.getElementById("name").value.trim();
+    if(!n){alert("Kripya apna naam likhiye");return;}
+    document.getElementById("shareBox").style.display="block";
+}
+
+function shareAll(){
+    let n=document.getElementById("name").value.trim();
+    let url=location.origin+location.pathname+"?name="+encodeURIComponent(n);
+    let text="🇮🇳 Happy Republic Day 26 January 2026 🇮🇳\n\nFrom: "+n+"\n\n"+url;
+
+    if(navigator.share){
+        navigator.share({
+            title:"Happy Republic Day 2026",
+            text:text,
+            url:url
+        });
+    }else{
+        window.open("https://wa.me/?text="+encodeURIComponent(text));
+    }
+    confetti();
+}
+
+function confetti(){
+    for(let i=0;i<40;i++){
+        let c=document.createElement("div");
+        c.className="confetti";
+        c.style.left=Math.random()*100+"vw";
+        c.style.background=["#ff9933","#ffffff","#138808"][Math.floor(Math.random()*3)];
+        c.style.animationDuration=(2+Math.random()*3)+"s";
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),5000);
+    }
+}
+</script>
+
+</body>
+</html>
